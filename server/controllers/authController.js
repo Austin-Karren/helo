@@ -2,10 +2,10 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
    register: async(req, res) => {
-      console.log(req.body)
-      const {username, password, profile_pic} = req.body;
+      // console.log(req.body)
+      const {username, password} = req.body;
       const db = req.app.get('db');
-
+      const picture = `https://robohash.org/${username}.png`
       let user = await db.auth.check_user(username);
       if(user[0]) {
          return res.status(400).send('User already exists');
@@ -16,9 +16,9 @@ module.exports = {
       let newUser = await db.auth.register_user({
          username,
          password: hash,
-         profile_pic
+         profile_pic: picture
       });
-
+      
       req.session.user = newUser[0];
       res.status(201).send(req.session.user);
    },

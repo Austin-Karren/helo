@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getUser} from '../../redux/reducer';
+import {setUser} from '../../redux/userReducer';
 
 class Auth extends Component {
    constructor(props) {
       super(props);
       this.state = { 
          username: '',
-         password: '',
-         profile_pic: ''
+         password: ''
          // registerView: false
        }
    }
@@ -24,7 +23,8 @@ class Auth extends Component {
       const {username, password} = this.state;
       axios.post('/auth/login', {username, password})
       .then(res => {
-         this.props.getUser(res.data);
+         console.log(res.data)
+         this.props.setUser(res.data);
          this.props.history.push('/dashboard');
       })
       .catch(err => {
@@ -34,11 +34,11 @@ class Auth extends Component {
    }
 
    handleRegister = () => {
-      const {username, password, profile_pic} = this.state;
+      const {username, password} = this.state;
       if(password !== '') {
-         axios.post('/auth/register', {username, password, profile_pic})
+         axios.post('/auth/register', {username, password})
          .then(res => {
-            this.props.getUser(res.data)
+            this.props.setUser(res.data)
             this.props.history.push('/dashboard')
          })
          .catch(err => console.log(err));
@@ -74,4 +74,4 @@ class Auth extends Component {
    }
 }
  
-export default connect(null, {getUser})(Auth);
+export default connect(null, {setUser})(Auth);

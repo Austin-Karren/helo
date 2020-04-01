@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import {getUser} from '../../redux/userReducer';
 
 class Dashboard extends Component {
    constructor(props) {
       super(props);
       this.state = { 
          search: '',
-         checkbox: true
+         checkbox: true,
+         user_id: NaN
        }
+   }
+
+   componentDidMount(){
+      console.log(this.props)
    }
 
    handleInput = (input) => {
@@ -16,8 +24,10 @@ class Dashboard extends Component {
    }
 
    render() { 
+      console.log(this.props);
       return ( 
          <div className='Dashboard'>
+            <h1>{this.props.store.username}</h1>
             <section className="Dashboard_Filter" alt='Dashboard filter'>
                <div>
                   <input 
@@ -43,5 +53,11 @@ class Dashboard extends Component {
        );
    }
 }
+
+const mapStateToProps = reduxState => {
+   console.log(reduxState)
+   const {id, username, profile_pic} = reduxState.users
+   return {store: {id, username, profile_pic}}
+}
  
-export default Dashboard;
+export default connect(mapStateToProps, {getUser})(Dashboard);
