@@ -32,3 +32,9 @@ massive({
 app.post('/auth/register', authCtrl.register);
 app.post('/auth/login', authCtrl.login);
 app.get('/auth/logout', authCtrl.logout);
+
+//post endpoints
+app.get('/api/posts', postCtrl.getDashPosts);
+app.get('/api/post/:id', postCtrl.getPost);
+app.delete('/api/post/:id', postCtrl.deletePost);
+app.put('/api/edit/:id', postCtrl.editPost);
