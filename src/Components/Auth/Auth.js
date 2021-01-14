@@ -21,7 +21,7 @@ class Auth extends Component {
 
    handleLogin = () => {
       const {username, password} = this.state;
-      axios.post('/auth/login', {username, password})
+      axios.post('/Auth/login', {username, password})
       .then(res => {
          console.log(res.data)
          this.props.setUser(res.data);
@@ -75,3 +75,6 @@ class Auth extends Component {
 }
  
 export default connect(null, {setUser})(Auth);
+
+// test
+// test

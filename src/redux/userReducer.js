@@ -7,13 +7,6 @@ const initialState = {
 
 const SET_USER = 'SET_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
-const GET_USER = 'GET_USER';
-
-export function getUser() {
-   return {
-      type: GET_USER
-   }
-}
 
 export function setUser(userObj) {
    return {
@@ -37,8 +30,6 @@ export default function reducer(state = initialState, action) {
          return {...state, ...payload};
       case LOGOUT_USER: 
          return {...state, ...payload};
-      case GET_USER:
-         return {...state}
       default: 
          return state;
    }
